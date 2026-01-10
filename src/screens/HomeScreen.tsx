@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTaskStore } from '../store/useTaskStore';
 import { TaskItem } from '../components/TaskItem';
 import { colors } from '../theme/colors';
