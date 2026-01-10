@@ -1,0 +1,18 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="256" height="256" fill="white"/>
+<circle cx="181.635" cy="128.027" r="14.6348" fill="#717171"/>
+<circle cx="73.7041" cy="128.027" r="14.6348" fill="#717171"/>
+<circle cx="127.67" cy="78.6348" r="14.6348" fill="#717171"/>
+<rect x="127.596" y="64.1159" width="14.6348" height="75.9178" transform="rotate(45 127.596 64.1159)" fill="#717171"/>
+<rect x="117.608" y="74.3483" width="14.6348" height="75.9178" transform="rotate(-45 117.608 74.3483)" fill="#717171"/>
+<circle cx="127.566" cy="177.365" r="14.6348" fill="#9C9C9C"/>
+<circle cx="19.6348" cy="177.365" r="14.6348" fill="#9C9C9C"/>
+<circle cx="73.6003" cy="127.973" r="14.6348" fill="#9C9C9C"/>
+<rect x="73.5266" y="113.454" width="14.6347" height="75.9178" transform="rotate(45 73.5266 113.454)" fill="#9C9C9C"/>
+<rect x="63.5391" y="123.687" width="14.6347" height="75.9178" transform="rotate(-45 63.5391 123.687)" fill="#9C9C9C"/>
+<circle cx="235.705" cy="177.365" r="14.6348" fill="black"/>
+<circle cx="127.773" cy="177.365" r="14.6348" fill="black"/>
+<circle cx="181.739" cy="127.973" r="14.6348" fill="black"/>
+<rect x="181.665" y="113.454" width="14.6347" height="75.9178" transform="rotate(45 181.665 113.454)" fill="black"/>
+<rect x="171.678" y="123.687" width="14.6347" height="75.9178" transform="rotate(-45 171.678 123.687)" fill="black"/>
+</svg>

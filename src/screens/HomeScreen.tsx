@@ -7,6 +7,8 @@ import { colors } from '../theme/colors';
 import { Plus } from 'lucide-react-native';
 import { AddTaskModal } from '../components/AddTaskModal';
 
+import Logo from '../../assets/logo.svg';
+
 export const HomeScreen: React.FC = () => {
     const { tasks } = useTaskStore();
     const [modalVisible, setModalVisible] = useState(false);
@@ -23,7 +25,10 @@ export const HomeScreen: React.FC = () => {
             <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.title}>DoTree</Text>
+                    <View style={styles.logoRow}>
+                        <Logo width={32} height={32} color={colors.text} />
+                        <Text style={styles.title}>DoTree</Text>
+                    </View>
                     <Text style={styles.subtitle}>{tasks.filter(t => !t.isCompleted).length} tasks pending</Text>
                 </View>
 
@@ -65,6 +70,11 @@ const styles = StyleSheet.create({
     header: {
         marginTop: 20,
         marginBottom: 20,
+    },
+    logoRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
     },
     title: {
         fontSize: 32,
