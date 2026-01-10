@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         gap: 12, // React Native 0.71+ supports gap
     },
     circle: {
-        width: 24,
+        width: 48,
         height: 24,
         borderRadius: 12,
     },

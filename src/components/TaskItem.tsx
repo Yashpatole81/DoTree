@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 20,
         color: colors.text,
-        fontWeight: '500',
+        fontWeight: 'bold',
     },
     titleExpanded: {
         color: colors.white,
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
     },
     priorityDot: {
-        width: 6,
+        width: 12,
         height: 6,
         borderRadius: 3,
         marginRight: 8,
