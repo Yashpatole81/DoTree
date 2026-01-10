@@ -27,7 +27,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, expanded && styles.containerExpanded]}>
             {/* Main Task Row */}
             <TouchableOpacity
                 style={styles.mainRow}
@@ -38,19 +38,30 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
 
                 <TouchableOpacity onPress={() => toggleTask(task.id)} style={styles.checkbox}>
                     {task.isCompleted ? (
-                        <View style={styles.checkedBox}>
-                            <Check size={14} color={colors.white} />
+                        <View style={[styles.checkedBox, expanded && styles.checkedBoxExpanded]}>
+                            <Check size={14} color={expanded ? colors.black : colors.white} />
                         </View>
                     ) : (
-                        <View style={[styles.uncheckedBox, task.subtasks.length > 0 && styles.disabledBox]} />
+                        <View style={[
+                            styles.uncheckedBox,
+                            task.subtasks.length > 0 && styles.disabledBox,
+                            expanded && styles.uncheckedBoxExpanded
+                        ]} />
                     )}
                 </TouchableOpacity>
 
-                <Text style={[styles.title, task.isCompleted && styles.completedText]}>
+                <Text style={[
+                    styles.title,
+                    expanded && styles.titleExpanded,
+                    task.isCompleted && styles.completedText
+                ]}>
                     {task.title}
                 </Text>
 
-                {expanded ? <ChevronDown size={20} color={colors.textSecondary} /> : <ChevronRight size={20} color={colors.textSecondary} />}
+                {expanded ?
+                    <ChevronDown size={20} color={colors.white} /> :
+                    <ChevronRight size={20} color={colors.textSecondary} />
+                }
             </TouchableOpacity>
 
             {/* Expanded Content */}
@@ -62,20 +73,24 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
 
                             <TouchableOpacity onPress={() => toggleSubTask(sub.id, task.id)} style={styles.checkboxSmall}>
                                 {sub.isCompleted ? (
-                                    <View style={styles.checkedBoxSmall}>
-                                        <Check size={12} color={colors.white} />
+                                    <View style={[styles.checkedBoxSmall, styles.checkedBoxSmallExpanded]}>
+                                        <Check size={12} color={colors.black} />
                                     </View>
                                 ) : (
-                                    <View style={styles.uncheckedBoxSmall} />
+                                    <View style={[styles.uncheckedBoxSmall, styles.uncheckedBoxSmallExpanded]} />
                                 )}
                             </TouchableOpacity>
 
-                            <Text style={[styles.subTitle, sub.isCompleted && styles.completedText]}>
+                            <Text style={[
+                                styles.subTitle,
+                                styles.subTitleExpanded,
+                                sub.isCompleted && styles.completedText
+                            ]}>
                                 {sub.title}
                             </Text>
 
                             <TouchableOpacity onPress={() => deleteSubTask(sub.id, task.id)}>
-                                <Trash2 size={16} color={colors.textSecondary} />
+                                <Trash2 size={16} color={'#AAAAAA'} />
                             </TouchableOpacity>
                         </View>
                     ))}
@@ -84,8 +99,9 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                     {isAddingSub ? (
                         <View style={styles.addSubContainer}>
                             <TextInput
-                                style={styles.input}
+                                style={[styles.input, styles.inputExpanded]}
                                 placeholder="Subtask title..."
+                                placeholderTextColor="#888888"
                                 value={newSubTitle}
                                 onChangeText={setNewSubTitle}
                                 autoFocus
@@ -93,15 +109,15 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                             />
                             <View style={styles.priorityRow}>
                                 <PrioritySelector selected={newSubPriority} onSelect={setNewSubPriority} />
-                                <TouchableOpacity onPress={handleAddSubTask} style={styles.addBtnSmall}>
-                                    <Check size={18} color={colors.white} />
+                                <TouchableOpacity onPress={handleAddSubTask} style={[styles.addBtnSmall, styles.addBtnSmallExpanded]}>
+                                    <Check size={18} color={colors.black} />
                                 </TouchableOpacity>
                             </View>
                         </View>
                     ) : (
                         <TouchableOpacity style={styles.addSubBtn} onPress={() => setIsAddingSub(true)}>
-                            <Plus size={16} color={colors.textSecondary} />
-                            <Text style={styles.addSubText}>Add Subtask</Text>
+                            <Plus size={16} color={'#DDDDDD'} />
+                            <Text style={[styles.addSubText, styles.addSubTextExpanded]}>Add Subtask</Text>
                         </TouchableOpacity>
                     )}
 
@@ -118,17 +134,23 @@ const styles = StyleSheet.create({
     container: {
         marginBottom: 16,
         backgroundColor: colors.white,
-        // Minimalist: No border usually, but maybe a bottom line?
-        // User said "No borders unless necessary".
+        borderWidth: 1,
+        borderColor: colors.text,
+        borderRadius: 8,
+        overflow: 'hidden',
+    },
+    containerExpanded: {
+        backgroundColor: colors.text,
     },
     mainRow: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 12,
+        paddingHorizontal: 12,
     },
     priorityIndicator: {
         width: 4,
-        height: '80%', // partial height line
+        height: '80%',
         borderRadius: 2,
         marginRight: 12,
     },
@@ -143,6 +165,9 @@ const styles = StyleSheet.create({
         borderColor: colors.text,
         borderRadius: 4,
     },
+    uncheckedBoxExpanded: {
+        borderColor: colors.white,
+    },
     checkedBox: {
         width: 20,
         height: 20,
@@ -151,22 +176,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    checkedBoxExpanded: {
+        backgroundColor: colors.white,
+    },
     disabledBox: {
         borderColor: colors.textSecondary,
         opacity: 0.5,
     },
     title: {
         flex: 1,
-        fontSize: 18,
+        fontSize: 20,
         color: colors.text,
         fontWeight: '500',
+    },
+    titleExpanded: {
+        color: colors.white,
     },
     completedText: {
         textDecorationLine: 'line-through',
         color: colors.textSecondary,
     },
     subList: {
-        paddingLeft: 40, // Indent
+        paddingLeft: 40,
+        paddingRight: 12,
         paddingBottom: 12,
     },
     subItem: {
@@ -191,6 +223,9 @@ const styles = StyleSheet.create({
         borderColor: colors.textSecondary,
         borderRadius: 3,
     },
+    uncheckedBoxSmallExpanded: {
+        borderColor: '#AAAAAA',
+    },
     checkedBoxSmall: {
         width: 16,
         height: 16,
@@ -199,10 +234,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    checkedBoxSmallExpanded: {
+        backgroundColor: '#AAAAAA',
+    },
     subTitle: {
         flex: 1,
-        fontSize: 16,
+        fontSize: 18,
         color: colors.textSecondary,
+    },
+    subTitleExpanded: {
+        color: '#DDDDDD', // Lighter grey for visibility on black
     },
     addSubBtn: {
         flexDirection: 'row',
@@ -213,7 +254,10 @@ const styles = StyleSheet.create({
     addSubText: {
         marginLeft: 8,
         color: colors.textSecondary,
-        fontSize: 14,
+        fontSize: 16,
+    },
+    addSubTextExpanded: {
+        color: '#DDDDDD',
     },
     addSubContainer: {
         marginTop: 8,
@@ -222,8 +266,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: colors.border,
         paddingVertical: 4,
-        fontSize: 16,
+        fontSize: 18,
         marginBottom: 8,
+        color: colors.text,
+    },
+    inputExpanded: {
+        color: colors.white,
+        borderBottomColor: '#666666',
     },
     priorityRow: {
         flexDirection: 'row',
@@ -238,16 +287,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    addBtnSmallExpanded: {
+        backgroundColor: colors.white,
+    },
     deleteTaskBtn: {
         marginTop: 16,
         alignSelf: 'flex-start',
     },
     deleteText: {
-        color: '#FF0000', // Or black since users said strict B/W? 
-        // "Only priority indicators may use muted accent colors".
-        // "Strictly black & white".
-        // I will use Gray for delete text to stay safe.
-        fontSize: 12,
+        color: '#FF0000',
+        fontSize: 14,
         textDecorationLine: 'underline',
     }
 });
