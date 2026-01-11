@@ -6,9 +6,10 @@ import { Priority } from '../types';
 interface Props {
     selected: Priority;
     onSelect: (p: Priority) => void;
+    selectedBorderColor?: string; // Optional border color for selected state
 }
 
-export const PrioritySelector: React.FC<Props> = ({ selected, onSelect }) => {
+export const PrioritySelector: React.FC<Props> = ({ selected, onSelect, selectedBorderColor = colors.text }) => {
     const options: Priority[] = ['low', 'medium', 'high'];
 
     return (
@@ -19,7 +20,11 @@ export const PrioritySelector: React.FC<Props> = ({ selected, onSelect }) => {
                     style={[
                         styles.circle,
                         { backgroundColor: colors.priority[p] },
-                        selected === p && styles.selected,
+                        selected === p && {
+                            borderWidth: 2,
+                            borderColor: selectedBorderColor,
+                            transform: [{ scale: 1.1 }],
+                        },
                     ]}
                     onPress={() => onSelect(p)}
                 />
@@ -40,7 +45,7 @@ const styles = StyleSheet.create({
     },
     selected: {
         borderWidth: 2,
-        borderColor: colors.text,
+        borderColor: colors.white, // Changed from colors.text to visible on black background
         transform: [{ scale: 1.1 }],
     },
 });

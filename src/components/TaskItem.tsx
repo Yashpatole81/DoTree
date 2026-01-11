@@ -22,7 +22,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
         if (newSubTitle.trim()) {
             addSubTask(task.id, newSubTitle.trim(), newSubPriority);
             setNewSubTitle('');
-            setIsAddingSub(false);
+            // Keep input open for rapid entry
         }
     };
 
@@ -106,12 +106,28 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                                 onChangeText={setNewSubTitle}
                                 autoFocus
                                 onSubmitEditing={handleAddSubTask}
+                                blurOnSubmit={false}
                             />
                             <View style={styles.priorityRow}>
-                                <PrioritySelector selected={newSubPriority} onSelect={setNewSubPriority} />
-                                <TouchableOpacity onPress={handleAddSubTask} style={[styles.addBtnSmall, styles.addBtnSmallExpanded]}>
-                                    <Check size={18} color={colors.black} />
-                                </TouchableOpacity>
+                                <PrioritySelector
+                                    selected={newSubPriority}
+                                    onSelect={setNewSubPriority}
+                                    selectedBorderColor={colors.white}
+                                />
+                                <View style={styles.actionButtons}>
+                                    <TouchableOpacity
+                                        onPress={() => setIsAddingSub(false)}
+                                        style={[styles.cancelBtn, styles.cancelBtnExpanded]}
+                                    >
+                                        <Plus size={18} color={colors.black} style={{ transform: [{ rotate: '45deg' }] }} />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={handleAddSubTask}
+                                        style={[styles.addBtnSmall, styles.addBtnSmallExpanded]}
+                                    >
+                                        <Check size={18} color={colors.black} />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                     ) : (
@@ -289,6 +305,22 @@ const styles = StyleSheet.create({
     },
     addBtnSmallExpanded: {
         backgroundColor: colors.white,
+    },
+    actionButtons: {
+        flexDirection: 'row',
+        gap: 12,
+        alignItems: 'center',
+    },
+    cancelBtn: {
+        backgroundColor: colors.text,
+        borderRadius: 20,
+        width: 28,
+        height: 28,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    cancelBtnExpanded: {
+        backgroundColor: '#FF4444', // Red for cancel
     },
     deleteTaskBtn: {
         marginTop: 16,
