@@ -49,3 +49,33 @@ You can then run the app on:
 - `assets/`: Images and fonts.
 - `app.json`: Expo configuration.
 - `App.tsx`: Main entry point.
+
+## Build & Release
+
+This project uses **EAS Build** for creating native apps.
+
+### Prerequisites
+
+1. Install EAS CLI: `npm install -g eas-cli`
+2. Login to your Expo account: `eas login`
+
+### Development Build
+Creates a standalone app that points to your local Metro server. Useful for native debugging.
+
+```bash
+eas build --platform android --profile development
+```
+
+### Preview Build (APK)
+Creates a standalone APK that can be installed and run without a server. Useful for sharing or testing on device.
+
+```bash
+eas build --platform android --profile preview
+```
+
+### Production Build
+Optimized build for store submission.
+
+```bash
+eas build --platform android --profile production
+```
